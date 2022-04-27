@@ -5,15 +5,22 @@ on:
       - master
   
 jobs:
-  
-  Analyze:
-    name: Build and Analyze
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-        
-      - name: Build and analyze
+      - uses: actions/checkout@v2
+      - name: Maven build and deploy
+        run: mvn clean deploy
+  
+  
+  Analyze:
+    name: Analyze
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master        
+      - name: analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B deploy org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Kalaiselvan92_pipeline
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Kalaiselvan92_pipeline
