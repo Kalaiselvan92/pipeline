@@ -11,4 +11,3 @@ public class App
         logger.log( "Hello World!" );
     }
 }
-}
