@@ -6,7 +6,7 @@ on:
   
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Cache Maven packages
         uses: actions/cache@v1
@@ -21,7 +21,7 @@ jobs:
   
   Analyze:
     name: Analyze
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
